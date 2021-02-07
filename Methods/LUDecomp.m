@@ -79,7 +79,7 @@ for j=1:len
 end
 U = Uaux;
 L = Laux;
-P = P';
+P = Transp(P);
 
 % Determinant calculation
 Paux = P;
