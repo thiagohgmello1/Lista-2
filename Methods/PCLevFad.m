@@ -16,7 +16,7 @@ len = A_size(1);
 Bn = eye(len);
 I = eye(len);
 q = zeros(1,(len + 1));
-q(1) = 1;
+q(1) = (-1)^len;
 
 for i=1:len
     qn = 0;
@@ -25,7 +25,7 @@ for i=1:len
     for k=1:len
         qn = qn + An(k,k);
     end
-    q(i + 1) = -qn/i;
+    q(i + 1) = qn/i;
     Bn = An - (qn/i)*I;
 end
 

@@ -10,22 +10,6 @@ if A_size(1) ~= A_size(2)
 end
 len = A_size(1);
 
-% Convergence garantee method
-if or(conv == "n", conv == "N")
-    flag = SpecRatio(A);
-    if flag == false
-        return
-    end
-elseif or(conv == "s", conv == "S")
-    flag = DiagDom(A);
-    if flag == false
-        return
-    end
-else
-    flag = false;
-    return
-end
-
 % Variables initialization
 xk = zeros(len,1);
 J = zeros(A_size);
@@ -33,7 +17,7 @@ c = zeros(len,1);
 count = 0;
 error = inf;
 
-% J, x0 and C matrices determination
+% J, x0 and c matrices determination
 for i=1:len
     for j=1:len
         if i ~= j
@@ -42,6 +26,25 @@ for i=1:len
     end
     xk(i) = b(i)/A(i,i);
     c(i) = b(i)/A(i,i);
+end
+
+% Convergence garantee method
+if or(conv == "n", conv == "N")
+    ratio = SpecRatio(J,"PowerMet",e,kmax)
+    if abs(ratio) > 1
+        flag = false;
+        x = [];
+        return
+    end
+elseif or(conv == "s", conv == "S")
+    flag = DiagDom(A);
+    if flag == false
+        x = [];
+        return
+    end
+else
+    flag = false;
+    return
 end
 
 % Jacobi method

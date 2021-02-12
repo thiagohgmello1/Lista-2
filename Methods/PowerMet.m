@@ -1,23 +1,33 @@
-function [lambdak1,yk1] = PowerMet(A,e,imax)
+function [lambda,yk] = PowerMet(A,e,imax)
 %PowerMet determine the higher eigenvalue of A matrix
 
 count = 0;
 A_size = size(A);
 len = A_size(1);
-lambdak = zeros(len,1);
-lambdak1 = lambdak;
-yk = randi(10,1,len);
-zk1 = MatrixMulti(A,yk);
-a = max(abs(zk1));
-yk1 = 1/a*zk1;
-error = inf*ones(len,1);
+error = inf;
 
-while and(error >= e, count < imax)
-    zk1 = MatrixMulti(A,yk);
-    a = max(abs(zk1));
-    yk1 = 1/a*zk1;
+yk = Transp(randi(10,1,len));
+while all(yk) == false
+    yk = Transp(randi(10,1,len));
 end
 
+zk = MatrixMulti(A,yk);
+a = max(abs(zk));
+yk = 1/a*zk;
+zk = MatrixMulti(A,yk);
+lambdak1 = zk./yk;
+
+while and(error >= e, count < imax)
+    lambdak = lambdak1;
+    a = max(abs(zk));
+    yk = 1/a*zk;
+    zk = MatrixMulti(A,yk);
+    lambdak1 = zk./yk;
+    error = abs(max((lambdak-lambdak1)./lambdak1));
+    yk = (1/a)*zk;
+    count = count + 1;
+end
+lambda = mean(lambdak1);
 
 end
 

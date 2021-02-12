@@ -1,22 +1,16 @@
-function [At, flag] = Transp(A)
+function [At] = Transp(A)
 %Transp determine transposition at A matrix
 
-flag = true;
 A_size = size(A);
 
-% Check if transposition is possible (A is a square matrix)
-if A_size(1) ~= A_size(2)
-    flag = false;
-    At = [];
-    return;
+At = zeros(A_size(2),A_size(1));
+
+for i=1:A_size(1)
+    At(:,i) = A(i,:);
 end
 
-len = size(A);
-At = zeros(len);
-
-for i=1:len
-    At(i,:) = A(:,i);
-    At(:,i) = A(i,:);
+for j=1:A_size(2)
+    At(j,:) = A(:,j);
 end
 
 end

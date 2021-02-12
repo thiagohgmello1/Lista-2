@@ -1,8 +1,9 @@
-function [ratio,flag] = SpecRatio(A)
+function [ratio] = SpecRatio(A,met,e,imax)
 %SpecRatio determine Spectral Ratio of matrix A
 
-ratio = 0;
-flag = true;
+if met == "PowerMet"
+    ratio = PowerMet(A,e,imax);
+end
 
 end
 
