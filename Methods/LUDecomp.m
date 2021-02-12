@@ -1,4 +1,4 @@
-function [L,U,P,flag,det] = LUDecomp(A)
+function [L,U,P,det,flag] = LUDecomp(A)
 % LUDecomp realize LU decomposition determining L, U and P matrix.
 
 % Inicializations

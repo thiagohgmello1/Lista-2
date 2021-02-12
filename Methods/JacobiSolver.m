@@ -30,7 +30,7 @@ end
 
 % Convergence garantee method
 if or(conv == "n", conv == "N")
-    ratio = SpecRatio(J,"PowerMet",e,kmax)
+    ratio = SpecRatio(J,"PowerMet",e,kmax);
     if abs(ratio) > 1
         flag = false;
         x = [];
